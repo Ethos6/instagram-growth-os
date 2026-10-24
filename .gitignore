@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+carousel/
+slides/
+*.srt
+*.ics
+.DS_Store

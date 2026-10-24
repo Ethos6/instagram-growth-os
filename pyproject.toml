@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "instagram-growth-os"
+version = "1.0.0"
+description = "Local, dependency-free tools behind the /insta-* Claude skills: hook scoring, beat sheets, caption lint, humanizer, Insights audit, carousel SVGs, calendar export."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [{name = "Ethos6"}]
+keywords = ["instagram", "claude", "skills", "reels", "content", "marketing"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Text Processing",
+]
+
+[project.urls]
+Homepage = "https://github.com/Ethos6/instagram-growth-os"
+
+[project.scripts]
+igos = "igos.cli:main"
+
+[tool.setuptools]
+packages = ["igos", "igos.data"]
+
+[tool.setuptools.package-data]
+"igos.data" = ["*.json", "*.md"]
