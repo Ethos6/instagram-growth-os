@@ -85,6 +85,10 @@ def _tidy(text: str) -> str:
     text = re.sub(r",\s*([.!?;:])", r"\1", text)
     text = re.sub(r"([.!?])\s*,", r"\1", text)
     text = re.sub(r"(^|\n)[ \t]*[,;:]?[ \t]*", r"\1", text)
+    # a deleted phrase can leave its punctuation behind: "Absolutely! Yes" -> "! Yes"
+    text = re.sub(r"(^|\n|[.!?][ \t]+)[!?.]+(?![.\w])[ \t]*", r"\1", text)
+    text = re.sub(r"(^|\n)[ \t]+", r"\1", text)
+    text = re.sub(r"([!?])\.(?!\.)", r"\1", text)
     text = re.sub(r"[ \t]+(\n|$)", r"\1", text)
     text = re.sub(r"\(\s*\)", "", text)
     return text
@@ -95,7 +99,7 @@ def _recap(text: str) -> str:
     def up(m: re.Match) -> str:
         return m.group(1) + m.group(2).upper()
 
-    text = re.sub(r"(^\s*|[.!?]\s+|\n\s*)([a-z])", up, text)
+    text = re.sub(r"(^\s*|(?<!\.\.)[.!?]\s+|\n\s*)([a-z])", up, text)
     return text
 
 

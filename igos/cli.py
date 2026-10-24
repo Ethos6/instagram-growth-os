@@ -68,6 +68,8 @@ def cmd_hook(args) -> int:
         lines = args.hook
     else:
         lines = [l for l in T.read_input(args.file).splitlines() if l.strip()]
+    if not any(l.strip() for l in lines):
+        raise EmptyInput(args.file)
     res = H.rank(lines)
     _emit(args, [r.as_dict() for r in res], H.render(res))
     return 0 if res and res[0].verdict != "REWRITE" else 1
@@ -171,6 +173,9 @@ def cmd_plan(args) -> int:
 def cmd_carousel(args) -> int:
     slides = K.parse(T.read_input(args.file))
     notes = K.lint(slides)
+    over = K.overflowing(slides, args.ratio) if slides else []
+    if over:
+        notes = [n for n in notes if n != "PASS"] + [f"FAIL text overflows on slide(s) {', '.join(map(str, over))}; shorten them"]
     paths = []
     if not args.lint_only:
         paths = K.render_all(slides, args.out, ratio=args.ratio, bg=args.bg, fg=args.fg,
@@ -203,6 +208,8 @@ def cmd_profile(args) -> int:
 def cmd_log(args) -> int:
     if args.action == "add":
         txt = T.read_input(args.file)
+        if not txt.strip():
+            raise EmptyInput(args.file)
         e = L.add(args.kind, txt, H.classify(txt.split("\n")[0])[0])
         print(f"logged {e['kind']}: {T.shorten(e['first_line'], 60)}")
     elif args.action == "list":
@@ -323,10 +330,34 @@ def build_parser() -> argparse.ArgumentParser:
     return ap
 
 
+TEXT_COMMANDS = {"hook", "beats", "caption", "humanize", "detect", "carousel", "research", "audit", "plan"}
+
+
+class EmptyInput(Exception):
+    pass
+
+
+def _guard_empty(args) -> None:
+    """Fail loudly on empty input instead of printing an empty report."""
+    if args.cmd == "log" and args.action in ("add", "check"):
+        pass
+    elif args.cmd not in TEXT_COMMANDS or getattr(args, "hook", None):
+        return
+    path = getattr(args, "file", None)
+    if path in (None, "-"):
+        return  # stdin is checked by the command itself
+    if os.path.exists(path) and not T.read_input(path).strip():
+        raise EmptyInput(path)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        _guard_empty(args)
         return args.fn(args)
+    except EmptyInput as e:
+        print(f"igos: input is empty: {e}", file=sys.stderr)
+        return 2
     except FileNotFoundError as e:
         print(f"igos: {e.strerror}: {e.filename}", file=sys.stderr)
         return 2

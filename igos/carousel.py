@@ -49,7 +49,7 @@ def lint(slides: list[Slide]) -> list[str]:
     cap = T.load_data("platform.json")["limits"]["carousel_slides"]["value"]
     notes = []
     if not slides:
-        return ["no slides found"]
+        return ["FAIL no slides found"]
     if len(slides) > cap:
         notes.append(f"FAIL {len(slides)} slides; the cap is {cap}")
     elif len(slides) < 3:
@@ -109,6 +109,12 @@ def render_svg(slide: Slide, idx: int, total: int, ratio: str = "4:5", bg: str =
     if y > h - 120:
         parts.insert(1, "<!-- igos: text overflows; shorten this slide -->")
     return "\n".join(parts)
+
+
+def overflowing(slides: list[Slide], ratio: str = "4:5") -> list[int]:
+    """1-based numbers of slides whose text runs past the safe bottom margin."""
+    return [i for i, s in enumerate(slides, 1)
+            if "text overflows" in render_svg(s, i, len(slides), ratio=ratio)]
 
 
 def render_all(slides: list[Slide], outdir: str, **kw) -> list[str]:

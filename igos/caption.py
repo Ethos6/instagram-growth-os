@@ -107,7 +107,7 @@ def lint(caption: str, keywords: list[str] | None = None, sponsored: bool = Fals
     elif DISCLOSURE_RE.search(caption):
         idx = DISCLOSURE_RE.search(caption).start()
         if idx > 125:
-            checks.append(Check("WARN", "DISCLOSURE", "disclosure is hidden behind '... more'; move it into the preview"))
+            checks.append(Check("FAIL" if sponsored else "WARN", "DISCLOSURE", "disclosure is hidden behind '... more'; move it into the preview"))
         else:
             checks.append(Check("PASS", "DISCLOSURE", "visible in the preview"))
 

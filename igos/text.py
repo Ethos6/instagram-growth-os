@@ -30,9 +30,31 @@ def read_input(path: str | None) -> str:
     import sys
 
     if path in (None, "-"):
-        return sys.stdin.read()
-    with open(path, "r", encoding="utf-8") as fh:
-        return fh.read()
+        raw = sys.stdin.buffer.read() if hasattr(sys.stdin, "buffer") else sys.stdin.read().encode("utf-8")
+    else:
+        with open(path, "rb") as fh:
+            raw = fh.read()
+    return decode_bytes(raw)
+
+
+def decode_bytes(raw: bytes) -> str:
+    """Decode text the way it actually arrives: UTF-8, UTF-8 with BOM, UTF-16
+    (Excel and Notepad exports) or a Windows code page. Never raises."""
+    if raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+        return raw.decode("utf-16")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        return raw[3:].decode("utf-8", errors="replace")
+    # UTF-16 without a BOM: lots of NUL bytes in alternate positions
+    if raw and raw.count(b"\x00") > len(raw) // 4:
+        for enc in ("utf-16-le", "utf-16-be"):
+            try:
+                return raw.decode(enc)
+            except UnicodeDecodeError:
+                pass
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw.decode("cp1252", errors="replace")
 
 
 # --------------------------------------------------------------------------- #
@@ -40,7 +62,7 @@ def read_input(path: str | None) -> str:
 # --------------------------------------------------------------------------- #
 
 URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
-HASHTAG_RE = re.compile(r"(?<![\w&])#([^\s#.,!?;:()\[\]{}\"']+)")
+HASHTAG_RE = re.compile(r"(?<![\w&])#(?=[^\s#]*[^\W\d_])([^\s#.,!?;:()\[\]{}\"']+)")
 MENTION_RE = re.compile(r"(?<![\w.])@([A-Za-z0-9._]{1,30})")
 WORD_RE = re.compile(r"[A-Za-z0-9]+(?:['’][A-Za-z]+)*(?:[.,]\d+)?")
 SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])[\"')\]]*\s+|\n+")
