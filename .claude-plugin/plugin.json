@@ -1,0 +1,10 @@
+{
+  "name": "instagram-growth-os",
+  "version": "1.0.0",
+  "description": "16 Instagram skills for Claude (/insta-*) plus a local, dependency-free CLI: hook scoring, beat sheets with .srt captions, caption lint, humanizer, Insights audit, carousel SVGs, calendar export. Writes everything; posts nothing.",
+  "author": {"name": "Ethos6", "url": "https://github.com/Ethos6"},
+  "homepage": "https://github.com/Ethos6/instagram-growth-os",
+  "repository": "https://github.com/Ethos6/instagram-growth-os",
+  "license": "MIT",
+  "keywords": ["instagram", "reels", "social-media", "content", "marketing", "skills"]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "ethos6",
+  "owner": {"name": "Ethos6", "url": "https://github.com/Ethos6"},
+  "plugins": [
+    {
+      "name": "instagram-growth-os",
+      "source": "./",
+      "description": "Run an Instagram account with Claude: Reels, captions, carousels, stories, profile, planning, research, audit, trials and collabs.",
+      "version": "1.0.0"
+    }
+  ]
+}
