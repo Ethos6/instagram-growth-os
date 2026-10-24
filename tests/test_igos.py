@@ -199,5 +199,72 @@ class CliTests(unittest.TestCase):
         self.assertEqual(r.returncode, 2)
 
 
+class RegressionTests(unittest.TestCase):
+    """Bugs found in the v1.0.0 re-test. Each one stays fixed."""
+
+    def test_non_utf8_inputs_decode(self):
+        self.assertEqual(T.decode_bytes("h\u00e9llo".encode("utf-16")), "h\u00e9llo")
+        self.assertEqual(T.decode_bytes("h\u00e9llo".encode("cp1252")), "h\u00e9llo")
+        self.assertEqual(T.decode_bytes(b"\xef\xbb\xbfhi"), "hi")
+        self.assertEqual(T.decode_bytes("ab".encode("utf-16-le")), "ab")
+
+    def test_utf16_insights_export_via_cli(self):
+        raw = read("insights_export.csv").replace(",", "\t")
+        with tempfile.NamedTemporaryFile("wb", suffix=".tsv", delete=False) as fh:
+            fh.write(raw.encode("utf-16"))
+        try:
+            r = subprocess.run([sys.executable, "-m", "igos", "audit", fh.name], cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertIn("AUDIT  24 posts", r.stdout)
+        finally:
+            os.unlink(fh.name)
+
+    def test_empty_input_is_an_error(self):
+        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as fh:
+            fh.write("  \n\n")
+        try:
+            for cmd in ("hook", "caption", "beats", "humanize", "detect", "carousel"):
+                r = subprocess.run([sys.executable, "-m", "igos", cmd, fh.name], cwd=ROOT, capture_output=True, text=True)
+                self.assertEqual(r.returncode, 2, cmd)
+                self.assertIn("input is empty", r.stderr)
+        finally:
+            os.unlink(fh.name)
+
+    def test_log_add_rejects_empty(self):
+        with tempfile.TemporaryDirectory() as d:
+            env = dict(os.environ, IGOS_HOME=d)
+            r = subprocess.run([sys.executable, "-m", "igos", "log", "add", "-"], cwd=ROOT, input="",
+                               capture_output=True, text=True, env=env)
+            self.assertEqual(r.returncode, 2)
+            self.assertFalse(os.path.exists(os.path.join(d, "log.jsonl")))
+
+    def test_numeric_hashtags_are_not_tags(self):
+        self.assertEqual(T.hashtags("my #1 tip #2026goals"), ["#2026goals"])
+
+    def test_deleted_phrase_leaves_no_orphan_punctuation(self):
+        self.assertEqual(humanize.humanize("Stop scrolling! Here's the deal.")[0], "Here's the deal.")
+        self.assertEqual(humanize.humanize("Hey! Follow for more. Thanks!")[0], "Hey! Thanks!")
+
+    def test_no_article_grammar_break(self):
+        out = humanize.humanize("There is a plethora of options.")[0]
+        self.assertNotIn("a lots", out)
+
+    def test_ordinary_words_are_not_rewritten(self):
+        src = "We foster dogs. Unlock your phone. Grab the dog harness."
+        self.assertEqual(humanize.humanize(src)[0], src)
+
+    def test_no_capital_after_ellipsis(self):
+        self.assertEqual(humanize.humanize("Wait... what")[0], "Wait... what")
+
+    def test_hidden_disclosure_fails_when_sponsored(self):
+        names = {x.name: x.status for x in caption.lint("x" * 200 + "\n#ad", sponsored=True)}
+        self.assertEqual(names["DISCLOSURE"], "FAIL")
+
+    def test_carousel_overflow_and_empty(self):
+        self.assertTrue(carousel.lint([])[0].startswith("FAIL"))
+        long = carousel.Slide("Title", ["word " * 120] * 4)
+        self.assertEqual(carousel.overflowing([carousel.Slide("Cover 5", []), long]), [2])
+
+
 if __name__ == "__main__":
     unittest.main()
