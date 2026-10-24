@@ -31,7 +31,7 @@ pip install git+https://github.com/Ethos6/instagram-growth-os   # the igos CLI
 
 ```bash
 git clone https://github.com/Ethos6/instagram-growth-os.git
-cd instagram-growth-os && ./install.sh          # add --project for ./.claude/skills
+cd instagram-growth-os && sh install.sh        # add --project for ./.claude/skills
 ```
 
 **Or just ask Claude**

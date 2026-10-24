@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # Install the /insta-* skills into Claude Code and the igos CLI.
-#   ./install.sh            global  (~/.claude/skills)
-#   ./install.sh --project  this project (./.claude/skills)
+#   sh install.sh            global  (~/.claude/skills)
+#   sh install.sh --project  this project (./.claude/skills)
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
 if [ "$1" = "--project" ]; then DEST=".claude/skills"; else DEST="$HOME/.claude/skills"; fi

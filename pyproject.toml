@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "instagram-growth-os"
-version = "1.0.0"
+version = "1.0.1"
 description = "Local, dependency-free tools behind the /insta-* Claude skills: hook scoring, beat sheets, caption lint, humanizer, Insights audit, carousel SVGs, calendar export."
 readme = "README.md"
 license = {text = "MIT"}
