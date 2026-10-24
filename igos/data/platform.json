@@ -1,0 +1,33 @@
+{
+  "checked": "2026-10-24",
+  "warning": "Platform numbers drift. If Instagram's app disagrees with this file, the app is right; update this file and open a PR.",
+  "limits": {
+    "caption_chars": {"value": 2200, "source": "https://metricool.com/instagram-limits/"},
+    "feed_preview_chars": {"value": 125, "note": "Approximate. The feed cuts the caption to about two lines and adds '... more'. Varies by device and line breaks."},
+    "hashtags_per_post": {"value": 5, "since": "2025-12", "source": "https://www.socialsamosa.com/news-2/instagram-hashtags-five-per-post-10923075"},
+    "mentions_per_post": {"value": 20, "source": "https://metricool.com/instagram-limits/"},
+    "carousel_slides": {"value": 20, "source": "https://metricool.com/instagram-limits/"},
+    "bio_chars": {"value": 150, "source": "https://metricool.com/instagram-limits/"},
+    "name_field_chars": {"value": 64, "note": "The name field is searchable; the bio is not weighted the same way."},
+    "username_chars": {"value": 30, "source": "https://metricool.com/instagram-limits/"},
+    "bio_links": {"value": 5, "note": "Most accounts can add up to five links in the profile editor; only the first shows inline."},
+    "story_seconds": {"value": 60, "source": "https://metricool.com/instagram-limits/"}
+  },
+  "sizes": {
+    "reel": {"w": 1080, "h": 1920, "ratio": "9:16"},
+    "story": {"w": 1080, "h": 1920, "ratio": "9:16"},
+    "feed_portrait": {"w": 1080, "h": 1350, "ratio": "4:5", "note": "Safest default; can be boosted as an ad."},
+    "feed_tall": {"w": 1080, "h": 1440, "ratio": "3:4", "note": "Matches the 3:4 profile grid. Reported as not boostable at time of check.", "source": "https://marketingmalone.com/blog/instagram-size-guide/"},
+    "grid_preview": {"ratio": "3:4", "note": "The profile grid crops every post to 3:4. Keep key content in the centre of 4:5 designs."}
+  },
+  "reel_safe_zone_1080x1920": {
+    "top": 220,
+    "bottom": 420,
+    "right": 160,
+    "note": "Conservative margin. The caption, action rail and audio strip cover these areas."
+  },
+  "ranking_signals": {
+    "note": "Instagram's head has publicly named watch time, likes per reach and sends per reach as the top signals (January 2025). Sends per reach matters most for reaching non-followers.",
+    "source": "https://creatorlanehq.com/blog/instagram-algorithm-2026-mosseri-vs-measured"
+  }
+}

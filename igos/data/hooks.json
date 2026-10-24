@@ -1,0 +1,284 @@
+{
+  "version": "1.0.0",
+  "about": "Opening-line patterns for Reels. Each has a spoken template, a worked example, a card for the screen (read before it is heard), when to use it, how it usually fails, and a case-insensitive regex so igos can name the pattern in hooks it finds in the wild. Patterns are tried in the order listed: most specific first.",
+  "principles": [
+    "Two hooks run at once: the sentence you say and the card on screen. Write them separately. The card is shorter.",
+    "Start at the most interesting sentence. Delete everything you would normally say before it.",
+    "Give the viewer something countable: a number, a name, a time, a place.",
+    "Promise one thing and pay it off before the halfway mark.",
+    "If a competitor could say the line word for word, it is not your hook yet."
+  ],
+  "families": {
+    "proof": "Leads with a result, a number or a receipt.",
+    "tension": "Leads with a conflict, a mistake or a contradiction.",
+    "curiosity": "Opens a gap the viewer wants closed.",
+    "utility": "Promises a usable thing: a list, a template, a shortcut.",
+    "story": "Drops the viewer into a moment already in motion."
+  },
+  "patterns": [
+    {
+      "id": "price-of-a-mistake",
+      "name": "Price of a Mistake",
+      "family": "tension",
+      "template": "{One decision} cost me {exact amount}.",
+      "example": "Skipping a deposit cost me $6,400 last spring.",
+      "on_screen": "$6,400 LESSON",
+      "use_when": "You need trust quickly. Viewers stay for the person who admits the loss.",
+      "failure_mode": "A vague price. 'It cost me so much' gives the viewer nothing to picture.",
+      "regex": "\\bcost (?:me|us|my|our)\\b|\\blost (?:me |us )?(?:[$\\u20ac\\u00a3\\u20b9]|\\d)|\\b(?:burned|wasted|threw away) (?:[$\\u20ac\\u00a3\\u20b9]|\\d)"
+    },
+    {
+      "id": "before-after-number",
+      "name": "Before / After Number",
+      "family": "proof",
+      "template": "{Metric} went from {before} to {after} in {time}.",
+      "example": "Our reply time went from two days to nine minutes in one week.",
+      "on_screen": "2 DAYS -> 9 MIN",
+      "use_when": "You have a clean transformation with two numbers.",
+      "failure_mode": "Numbers the viewer cannot check against their own life. Pick a metric they also track.",
+      "regex": "\\bfrom\\b[^.!?]{0,30}\\bto\\b[^.!?]{0,30}\\b(?:in|within|after|over)\\b|\\bwent from\\b|\\bused to take\\b[^.!?]{0,40}\\bnow\\b"
+    },
+    {
+      "id": "receipt",
+      "name": "The Receipt",
+      "family": "proof",
+      "template": "This {artifact} made {result}. Here is what is in it.",
+      "example": "This one-page brief booked us eleven calls. Here's what's in it.",
+      "on_screen": "THE BRIEF THAT BOOKED 11",
+      "use_when": "The thing itself can be shown on screen: a doc, a dashboard, a message.",
+      "failure_mode": "Showing the result but hiding the artifact. Show it or pick another pattern.",
+      "regex": "^\\s*(?:this|that|these)\\b[^.!?]{0,40}\\b(?:made|got|booked|brought|earned|generated|sold|landed|won)\\b"
+    },
+    {
+      "id": "borrowed-result",
+      "name": "Borrowed Result",
+      "family": "proof",
+      "template": "{Named person or business} did {surprising result} with {small input}.",
+      "example": "A bakery in Pune got 40,000 views with a phone and a tripod.",
+      "on_screen": "PHONE + TRIPOD = 40K",
+      "use_when": "You are teaching from someone else's win and can name them.",
+      "failure_mode": "Anonymous case studies. 'A client of mine' is weaker than a named place.",
+      "regex": "^\\s*(?:a|an|my|this|one)\\s+(?:\\w+\\s){0,3}(?:client|friend|student|bakery|founder|creator|brand|agency|company|guy|girl|woman|man|dentist|coach|shop|store|restaurant)\\b[^.!?]{0,60}\\b(?:made|got|grew|hit|did|sold|earned|went)\\b"
+    },
+    {
+      "id": "hard-stat",
+      "name": "Hard Stat",
+      "family": "proof",
+      "template": "{Number}% of {group} {surprising behaviour}.",
+      "example": "Eight in ten people watch your Reel with the sound off.",
+      "on_screen": "8 IN 10: SOUND OFF",
+      "use_when": "A real statistic reframes a habit. Cite it in the caption.",
+      "failure_mode": "An unsourced number. If you cannot link it, do not say it.",
+      "regex": "^\\s*(?:\\d+(?:\\.\\d+)?\\s?%|\\w+ (?:in|out of) (?:ten|\\d+)|(?:most|half|nearly all|almost all) (?:of )?(?:people|creators|brands|businesses|accounts))"
+    },
+    {
+      "id": "wrong-order",
+      "name": "Wrong Order",
+      "family": "tension",
+      "template": "You're doing {task} in the wrong order.",
+      "example": "You're writing the caption before the hook. That's backwards.",
+      "on_screen": "WRONG ORDER",
+      "use_when": "The fix is a sequence change, which is easy to show and easy to try.",
+      "failure_mode": "No new order revealed. Name the right order within five seconds.",
+      "regex": "\\bwrong order\\b|\\bbackwards\\b|\\bin reverse\\b|\\bbefore you even\\b"
+    },
+    {
+      "id": "quit-this",
+      "name": "Quit This",
+      "family": "tension",
+      "template": "Quit {common habit}. {Replacement} works better.",
+      "example": "Quit posting at 9 a.m. Your audience is asleep in another time zone.",
+      "on_screen": "QUIT 9 A.M. POSTS",
+      "use_when": "The viewer recognises the habit in themselves.",
+      "failure_mode": "Attacking a habit nobody has.",
+      "regex": "^\\s*(?:stop|quit|never|don'?t|do not|please stop)\\b"
+    },
+    {
+      "id": "flip",
+      "name": "The Flip",
+      "family": "tension",
+      "template": "{Popular advice} is wrong. {Counter-position}.",
+      "example": "Posting every day is bad advice for a three-person business.",
+      "on_screen": "DAILY POSTING IS A TRAP",
+      "use_when": "You disagree with something everyone repeats and can back it up.",
+      "failure_mode": "Disagreeing with a straw man. Quote the actual advice.",
+      "regex": "\\b(?:is|are) (?:wrong|a lie|a myth|overrated|bad advice|a trap|dead|outdated)\\b|\\bunpopular opinion\\b|\\bhot take\\b|\\beveryone says\\b|\\bthey told you\\b"
+    },
+    {
+      "id": "quiet-part",
+      "name": "The Quiet Part",
+      "family": "curiosity",
+      "template": "What nobody says about {topic}: {uncomfortable truth}.",
+      "example": "What nobody says about going viral: your inbox fills with spam, not clients.",
+      "on_screen": "VIRAL != CLIENTS",
+      "use_when": "You have an insider truth the viewer has not heard.",
+      "failure_mode": "A truth that is already common knowledge.",
+      "regex": "\\bnobody (?:tells|told|says|talks|mentions|warns)\\b|\\bno one (?:tells|told|says|talks|mentions|warns)\\b|\\bwhat they don'?t tell you\\b|\\bthe (?:quiet|ugly|boring) (?:part|truth)\\b"
+    },
+    {
+      "id": "why-question",
+      "name": "Pointed Why",
+      "family": "curiosity",
+      "template": "Why does {specific thing} {surprising outcome}?",
+      "example": "Why do your best posts get the fewest saves?",
+      "on_screen": "BEST POSTS, FEWEST SAVES?",
+      "use_when": "The viewer has noticed the puzzle themselves.",
+      "failure_mode": "A question with an obvious answer. If they can answer it, they scroll.",
+      "regex": "^\\s*why (?:do|does|did|is|are|was|were|would|nobody|no one|most)\\b"
+    },
+    {
+      "id": "hidden-reason",
+      "name": "Hidden Reason",
+      "family": "curiosity",
+      "template": "The real reason {outcome} is {non-obvious cause}.",
+      "example": "The real reason your Reels stall at 300 views is the first frame, not the hook.",
+      "on_screen": "IT'S THE FIRST FRAME",
+      "use_when": "You can name one cause and show it.",
+      "failure_mode": "Five reasons. The pattern promises one.",
+      "regex": "\\b(?:the )?(?:real|actual|true|hidden) reason\\b|\\bhere'?s why\\b|\\bthis is why\\b"
+    },
+    {
+      "id": "reveal",
+      "name": "Found Out",
+      "family": "curiosity",
+      "template": "I found out {thing} {does surprising thing}.",
+      "example": "I found out our top competitor writes every caption on a phone in a car.",
+      "on_screen": "THEY WRITE IN THE CAR",
+      "use_when": "You discovered something by looking closely.",
+      "failure_mode": "A reveal that is not surprising once said.",
+      "regex": "^\\s*(?:i|we) (?:just )?(?:found out|discovered|realised|realized|figured out|learned|noticed)\\b|\\bturns out\\b"
+    },
+    {
+      "id": "test-result",
+      "name": "I Tested It",
+      "family": "proof",
+      "template": "I tried {thing} for {time}. {Result}.",
+      "example": "I replied to every comment within ten minutes for 30 days. Reach doubled.",
+      "on_screen": "30 DAYS OF FAST REPLIES",
+      "use_when": "You ran a real experiment and have the number.",
+      "failure_mode": "An experiment with no number at the end.",
+      "regex": "^\\s*(?:i|we) (?:\\w+ ){1,8}?(?:for|every day for|over|in) (?:\\d+|one|two|three|four|five|six|seven|ten|thirty|a|an) (?:full )?(?:days?|weeks?|months?|years?|hours?)\\b|^\\s*(?:i|we) (?:tried|tested|ran an experiment)\\b"
+    },
+    {
+      "id": "copy-this",
+      "name": "Copy This",
+      "family": "utility",
+      "template": "Copy the {artifact} that {result}.",
+      "example": "Copy the four-line DM that got me three podcast invites.",
+      "on_screen": "COPY THIS DM",
+      "use_when": "You can give away a literal template on screen.",
+      "failure_mode": "Teasing the template and gating it behind a comment without showing any of it.",
+      "regex": "^\\s*(?:copy|steal|take|grab|use|save) (?:this|my|the|these)\\b"
+    },
+    {
+      "id": "forbidden-list",
+      "name": "Things I'd Never Do",
+      "family": "tension",
+      "template": "{Number} things I'll never do again as a {role}.",
+      "example": "Three things I'll never do again as a wedding photographer.",
+      "on_screen": "NEVER AGAIN: 3 THINGS",
+      "use_when": "You have scars from real practice.",
+      "failure_mode": "Items that are obvious ('never be unprofessional').",
+      "regex": "\\b(?:will|would|i'?ll|i'?d) never (?:do|use|buy|hire|post|work)\\b|\\bnever again\\b"
+    },
+    {
+      "id": "numbered-shortcut",
+      "name": "Numbered Shortcut",
+      "family": "utility",
+      "template": "{Number} {things} that {specific benefit}.",
+      "example": "Three caption edits that took our saves from 12 to 90.",
+      "on_screen": "3 EDITS, 7x SAVES",
+      "use_when": "The items are short enough to land one per beat.",
+      "failure_mode": "Seven items in a 20-second Reel. Three is the ceiling for most.",
+      "regex": "^\\s*(?:\\d+|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:\\w+\\s){0,3}(?:ways|things|tips|mistakes|rules|tools|edits|steps|reasons|habits|questions|lessons|signs|apps|prompts|hooks|ideas)\\b"
+    },
+    {
+      "id": "how-i",
+      "name": "How I Did X",
+      "family": "utility",
+      "template": "How I {result} without {expected cost}.",
+      "example": "How I got to 10,000 followers without showing my face.",
+      "on_screen": "10K, NO FACE",
+      "use_when": "The 'without' removes the viewer's main objection.",
+      "failure_mode": "Leaving out the 'without'. Without the constraint it is a generic how-to.",
+      "regex": "^\\s*how (?:i|we|to|you)\\b[^.!?]{0,60}\\bwithout\\b|^\\s*how (?:i|we)\\b"
+    },
+    {
+      "id": "if-you",
+      "name": "If You Are...",
+      "family": "utility",
+      "template": "If you {specific situation}, {do this}.",
+      "example": "If you sell anything over $500, put the price in your third slide.",
+      "on_screen": "SELLING OVER $500?",
+      "use_when": "You want to self-select a narrow audience on purpose.",
+      "failure_mode": "A situation so broad it filters nobody: 'If you want to grow'.",
+      "regex": "^\\s*(?:if you|if your|for anyone who|this is for)\\b"
+    },
+    {
+      "id": "extreme",
+      "name": "The Extreme",
+      "family": "curiosity",
+      "template": "The {most/cheapest/fastest} {thing} I've ever {done}.",
+      "example": "The cheapest marketing that ever worked for us cost $14.",
+      "on_screen": "$14 MARKETING",
+      "use_when": "You genuinely have a record or an outlier.",
+      "failure_mode": "Hyperbole you cannot defend. The comments will check.",
+      "regex": "\\bthe (?:best|worst|cheapest|fastest|easiest|hardest|biggest|smallest|most|least|only)\\b[^.!?]{0,40}\\b(?:i'?ve|we'?ve|i have|we have|i|we|that|which)? ?(?:ever|have ever)\\b|\\bnumber one\\b"
+    },
+    {
+      "id": "mid-scene",
+      "name": "Mid-Scene",
+      "family": "story",
+      "template": "{Time marker}, {thing happening}, and {complication}.",
+      "example": "It's 11 p.m., the launch is at nine, and the checkout page is broken.",
+      "on_screen": "LAUNCH IN 10 HOURS",
+      "use_when": "You have a real moment with stakes and a clock.",
+      "failure_mode": "Setting the scene with no complication. Start at the problem.",
+      "regex": "^\\s*(?:it'?s|it was|last (?:week|night|month|year)|yesterday|this morning|three|two|\\d+) [^.!?]{0,30}\\b(?:a\\.?m\\.?|p\\.?m\\.?|o'clock|ago|morning|night|before)\\b|^\\s*(?:so )?(?:last|yesterday)\\b"
+    },
+    {
+      "id": "confession",
+      "name": "Confession",
+      "family": "story",
+      "template": "I {did something embarrassing} for {time}.",
+      "example": "For two years I priced by guessing what the client could afford.",
+      "on_screen": "2 YEARS OF GUESSING",
+      "use_when": "The admission sets up a lesson the viewer needs.",
+      "failure_mode": "A humble-brag dressed as a confession.",
+      "regex": "\\bi (?:have to |need to )?(?:admit|confess)\\b|^\\s*for (?:\\d+|two|three|four|five|six|ten) (?:years|months|weeks)\\b|\\bi was (?:wrong|an idiot)\\b|\\bembarrassing\\b"
+    },
+    {
+      "id": "versus",
+      "name": "This vs That",
+      "family": "utility",
+      "template": "{Option A} vs {Option B} for {specific case}.",
+      "example": "Carousel vs Reel for a product launch: here's what our numbers said.",
+      "on_screen": "CAROUSEL vs REEL",
+      "use_when": "The viewer is choosing between two things right now.",
+      "failure_mode": "Ending on 'it depends'. Pick a side for a stated case.",
+      "regex": "\\b(?:vs\\.?|versus)\\b|\\bor\\b[^.!?]{0,30}\\bwhich (?:one|is better)\\b"
+    },
+    {
+      "id": "pov",
+      "name": "POV Card",
+      "family": "story",
+      "template": "POV: {relatable specific situation}.",
+      "example": "POV: the client says 'quick tweak' at 5:58 on a Friday.",
+      "on_screen": "POV: 'QUICK TWEAK'",
+      "use_when": "Humour or recognition carries the Reel more than information.",
+      "failure_mode": "A POV that needs explaining.",
+      "regex": "^\\s*pov\\b"
+    },
+    {
+      "id": "warning",
+      "name": "Warning",
+      "family": "tension",
+      "template": "Before you {common action}, check {specific thing}.",
+      "example": "Before you boost a post, check whether it was 3:4. Those can't be promoted.",
+      "on_screen": "CHECK BEFORE YOU BOOST",
+      "use_when": "There is a real, specific risk in a routine action.",
+      "failure_mode": "Fear with no check attached.",
+      "regex": "^\\s*(?:before you|don'?t (?:sign|post|buy|boost|launch|hire|pay)|warning|careful|heads up)\\b"
+    }
+  ]
+}

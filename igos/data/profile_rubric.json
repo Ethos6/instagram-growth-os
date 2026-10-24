@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "about": "100-point profile score. A visitor decides to follow in a few seconds from the top of the profile. Score each item 0..max with a one-line reason. Items marked auto are checked by `igos profile`.",
+  "items": [
+    {"id": "photo", "max": 6, "check": "Profile photo: a face (personal brand) or a simple mark (business) readable at 110px. No text in the circle."},
+    {"id": "name", "max": 10, "auto": true, "check": "Name field includes the searchable term for what you do, not just your name."},
+    {"id": "handle", "max": 4, "check": "Handle is sayable out loud and spelled the obvious way."},
+    {"id": "who", "max": 12, "auto": true, "check": "Bio line 1 says who you help and with what, in their words."},
+    {"id": "proof", "max": 10, "auto": true, "check": "One proof point: a number, a client, a credential that matters to the audience."},
+    {"id": "next-step", "max": 8, "auto": true, "check": "Bio ends on one action that matches the link."},
+    {"id": "link", "max": 8, "check": "Link goes to one destination that fulfils the bio's promise and loads fast on mobile."},
+    {"id": "pinned", "max": 12, "check": "Three pinned posts: one origin/proof, one best teaching piece, one offer or lead magnet."},
+    {"id": "grid-promise", "max": 10, "check": "The first 9 posts deliver what the bio promises. A stranger can tell the topic without reading captions."},
+    {"id": "grid-crop", "max": 4, "check": "Covers read correctly in the 3:4 grid crop: no cut-off text, consistent cover style."},
+    {"id": "highlights", "max": 8, "check": "Highlights are navigation: start here, results, offer, FAQ. Named in 1-2 words. Old event highlights removed."},
+    {"id": "cadence", "max": 4, "check": "Last post within 7 days."},
+    {"id": "category-contact", "max": 4, "check": "Professional account with the right category and a working contact or booking button."}
+  ]
+}
